@@ -1,0 +1,45 @@
+{
+  "id": "5dfc7608-c972-49d2-b1a7-ec5c247beb8f",
+  "name": "Approval email notification through Document Output",
+  "publisher": "https://github.com/document-output",
+  "version": "1.0.0.0",
+  "brief": "",
+  "description": "Notify relevant people by email once an purchase invoice has been approved.",
+  "privacyStatement": "",
+  "EULA": "",
+  "help": "https://github.com/document-output",
+  "url": "https://github.com/document-output",
+  "logo": "./res/logo.png",
+  "dependencies": [
+    {
+      "id": "6da8dd2f-e698-461f-9147-8e404244dd85",
+      "name": "Continia Document Capture",
+      "publisher": "Continia Software",
+      "version": "12.0.0.0"
+    },
+    {
+      "id": "f4b69b55-c90d-4937-8f53-2742898fa948",
+      "name": "Continia Document Output",
+      "publisher": "Continia Software",
+      "version": "9.0.0.0"
+    }
+  ],
+  "screenshots": [],
+  "platform": "1.0.0.0",
+  "application": "23.0.0.0",
+  "idRanges": [
+    {
+      "from": 63030,
+      "to": 63039
+    }
+  ],
+  "resourceExposurePolicy": {
+    "allowDebugging": true,
+    "allowDownloadingSource": true,
+    "includeSourceInSymbolFile": true
+  },
+  "runtime": "12.0",
+  "features": [
+    "NoImplicitWith"
+  ]
+}
