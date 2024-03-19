@@ -112,6 +112,7 @@ codeunit 63030 "DOADV Notification Mgt"
     begin
     end;
 
+
     local procedure NotifyApprovalFlowMembers(var ApprovalEntry: Record "Approval Entry")
     var
         PurchaseHeader: Record "Purchase Header";
@@ -134,7 +135,6 @@ codeunit 63030 "DOADV Notification Mgt"
         if not GetNotificationReceivers(PurchaseHeader, ApprovalFlowLines) then
             exit;
 
-
         SendApprovalNotification(ApprovalEntry);
 
         OnAfterNotifyApprovalFlowMembers(ApprovalEntry);
@@ -142,11 +142,22 @@ codeunit 63030 "DOADV Notification Mgt"
 
 
 
+    /// <summary>
+    /// Procedure to find the Purchase Header (invoice) linked to the given approval entry
+    /// </summary>
+    /// <param name="ApprovalEntry"></param>
+    /// <param name="PurchaseHeader"></param>
+    /// <param name="PurchHeaderType"></param>
+    /// <returns></returns>
     local procedure GetPurchaseHeaderFromApprovalEntry(ApprovalEntry: Record "Approval Entry"; var PurchaseHeader: Record "Purchase Header"; PurchHeaderType: enum Microsoft.Purchases.Document."Purchase Document Type"): Boolean
     begin
         exit(PurchaseHeader.Get(PurchHeaderType, ApprovalEntry."Document No."));
     end;
 
+    /// <summary>
+    /// Procedure that starts the process of sending approval notifications
+    /// </summary>
+    /// <param name="ApprovalEntry">Approval entry that triggered the procedure</param>
     local procedure SendApprovalNotification(ApprovalEntry: Record "Approval Entry")
     var
         EmailTemplateLine: Record "CDO E-Mail Template Line";
@@ -168,6 +179,11 @@ codeunit 63030 "DOADV Notification Mgt"
         end;
     end;
 
+    /// <summary>
+    /// Procedure to find a CDO template that is configured for Approval Entries. Please note, that this could not be sufficient if there are more than one template 
+    /// </summary>
+    /// <param name="EmailTemplateLine">The found Email Template Line</param>
+    /// <returns>True if the a template has been found</returns>
     local procedure FindOutputTemplate(var EmailTemplateLine: Record "CDO E-Mail Template Line"): Boolean
     begin
         EmailTemplateLine.SetRange("First Table in Report", Database::"Approval Entry");
@@ -179,6 +195,12 @@ codeunit 63030 "DOADV Notification Mgt"
 
     end;
 
+    /// <summary>
+    /// Procedure to query users that are set up to receive a notification about the approved document
+    /// </summary>
+    /// <param name="PurchaseHeader">Purchase Header record</param>
+    /// <param name="ApprovalFlowLines">Returns the filtered approval lines with notification users</param>
+    /// <returns>True if there is at least one notification receipient</returns>
     local procedure GetNotificationReceivers(PurchaseHeader: Record "Purchase Header"; var ApprovalFlowLines: Record "CDC Approval Flow Line"): Boolean
     var
         CDCPurchHeaderInfo: Record "CDC Purchase Header Info.";
